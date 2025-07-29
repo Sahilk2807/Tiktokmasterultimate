@@ -21,8 +21,11 @@ const skeletonLoader = document.getElementById('skeleton-loader') as HTMLDivElem
 const videoInfoContainer = document.getElementById('video-info') as HTMLDivElement;
 const errorMessage = document.getElementById('error-message') as HTMLDivElement;
 const themeToggle = document.getElementById('theme-toggle') as HTMLButtonElement;
-const themeIconLight = document.getElementById('theme-icon-light') as SVGElement;
-const themeIconDark = document.getElementById('theme-icon-dark') as SVGElement;
+
+// *** FIX IS HERE ***
+// Changed from SVGElement to the more general HTMLElement to satisfy TypeScript
+const themeIconLight = document.getElementById('theme-icon-light') as HTMLElement;
+const themeIconDark = document.getElementById('theme-icon-dark') as HTMLElement;
 
 // --- Theme Toggler ---
 const applyTheme = (theme: 'dark' | 'light') => {
