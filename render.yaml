@@ -1,0 +1,33 @@
+# render.yaml - Configuration for deploying on Render
+# This file tells Render how to build and run your frontend and backend.
+
+services:
+  # Backend - FastAPI Web Service
+  - type: web
+    name: tiktokmaster-backend
+    env: python
+    region: oregon # You can choose a region closer to you
+    rootDir: backend
+    plan: free # Use Render's free tier
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health # A simple health check endpoint to ensure the server is up
+
+  # Frontend - Static Site
+  - type: web
+    name: tiktokmaster-frontend
+    env: static
+    region: oregon
+    rootDir: frontend
+    plan: free
+    # Build command to install dependencies and create the 'dist' folder
+    buildCommand: "npm install && npm run build"
+    # The directory where the built files are located
+    publishDir: dist
+    # Rewrite rule to proxy API requests from the frontend to the backend
+    routes:
+      - type: rewrite
+        source: /api/:path*
+        # This destination URL is automatically created by Render.
+        # It takes the 'name' of your backend service and appends '.onrender.com'
+        destination: https://tiktokmaster-backend.onrender.com/:path*
