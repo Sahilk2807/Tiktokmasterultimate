@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.env
+*.env.*
+venv/
+.venv/
+
+# Node
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend Build Artifacts
+frontend/script.js
+frontend/script.js.map
+frontend/styles.css
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
